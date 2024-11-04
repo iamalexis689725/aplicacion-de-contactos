@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AplicacionContactos</string>
+    <string-array name="phone_labels">
+        <item>Casa</item>
+        <item>Trabajo</item>
+        <item>Celular</item>
+    </string-array>
+
 </resources>
