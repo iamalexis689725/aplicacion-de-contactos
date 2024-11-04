@@ -7,7 +7,8 @@ data class Persona (
     val address: String,
     val city: String,
     val state: String,
-    val phones: ArrayList<Phone> = arrayListOf()
+    val phones: ArrayList<Phone> = arrayListOf(),
+    val emails: ArrayList<Email> = arrayListOf()
 ) {
     var id: Long? = null
 }

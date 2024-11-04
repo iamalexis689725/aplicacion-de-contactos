@@ -8,20 +8,22 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aplicacioncontactos.R
+import com.example.aplicacioncontactos.databinding.ActivityListaDeCorreosBinding
 import com.example.aplicacioncontactos.databinding.ActivityListaDeTelefonosBinding
+import com.example.aplicacioncontactos.ui.adapters.CorreoListAdapter
 import com.example.aplicacioncontactos.ui.adapters.TelefonoListAdapter
 import com.example.aplicacioncontactos.ui.viewmodels.PersonaListViewModel
 
-class ListaDeTelefonosActivity : AppCompatActivity() {
+class ListaDeCorreosActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityListaDeTelefonosBinding
+    private lateinit var binding: ActivityListaDeCorreosBinding
     private val viewModel: PersonaListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityListaDeTelefonosBinding.inflate(layoutInflater)
+        binding = ActivityListaDeCorreosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -30,25 +32,27 @@ class ListaDeTelefonosActivity : AppCompatActivity() {
             insets
         }
 
+
         setupViewModelObservers()
         setupRecyclerView()
 
         val personaId = intent.getLongExtra("persona_id", -1L)
-        viewModel.getTelefonoListByPersona(personaId.toInt())
+        viewModel.getCorreoListByPersona(personaId.toInt())
     }
 
+
     private fun setupViewModelObservers() {
-        viewModel.telefonoList.observe(this) { phones ->
-            val adapter = binding.rvListaDeTelefonos.adapter as TelefonoListAdapter
-            adapter.updateData(phones)
+        viewModel.correoList.observe(this) { emails ->
+            val adapter = binding.rvListaDeCorreos.adapter as CorreoListAdapter
+            adapter.updateData(emails)
         }
     }
 
     private fun setupRecyclerView() {
-        val adapter = TelefonoListAdapter()
-        binding.rvListaDeTelefonos.apply {
+        val adapter = CorreoListAdapter()
+        binding.rvListaDeCorreos.apply {
             this.adapter = adapter
-            layoutManager = LinearLayoutManager(this@ListaDeTelefonosActivity)
+            layoutManager = LinearLayoutManager(this@ListaDeCorreosActivity)
         }
     }
 }

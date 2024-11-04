@@ -107,7 +107,7 @@ object PersonaRepository {
             override fun onResponse(call: Call<Persona>, response: Response<Persona>) {
                 if (response.isSuccessful && response.body() != null) {
                     val persona = response.body()!!
-                    println("Persona recibida en body: $persona") // Esto imprime el contenido de persona
+                    println("Persona recibida en body: $persona")
                     onSuccess(persona)
                 } else {
                     println("Error en la respuesta: ${response.errorBody()?.string()}")
@@ -121,30 +121,4 @@ object PersonaRepository {
             }
         })
     }
-
-
-    fun uploadProfilePicture(id: Int, imageFile: File, onSuccess: (Persona) -> Unit, onError: (Throwable) -> Unit) {
-        val retrofit = RetrofitRepository2.getRetrofitInstance()
-        val service = retrofit.create(JSONPlaceHolderService2::class.java)
-
-        val requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageFile)
-        val body = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
-
-        service.uploadProfilePicture(id, body).enqueue(object : Callback<Persona> {
-            override fun onResponse(call: Call<Persona>, response: Response<Persona>) {
-                if (response.isSuccessful) {
-                    val persona = response.body()
-                    onSuccess(persona!!)
-                } else {
-                    onError(RuntimeException("Error: ${response.errorBody()?.string()}"))
-                }
-            }
-
-            override fun onFailure(call: Call<Persona>, t: Throwable) {
-                onError(t)
-            }
-        })
-    }
-
-
 }

@@ -69,32 +69,24 @@ class PersonaListActivity : AppCompatActivity(), PersonaListAdapter.PersonaItemL
         return when (item.itemId) {
             R.id.action_delete -> {
                 selectedPersona?.let {
-                    println("selected persona: $it")
                     viewModel.deletePersona(it)
-                }
-                true
-            }
-            R.id.action_insert_telefono -> {
-                selectedPersona?.let { persona ->
-                    println("persona seleccionada: $persona")
-                    println("id de la persona seleccionada: ${persona.id}")
-                    println("phone de la persona seleccionada: ${persona.phones}")
-
-                    if (persona.phones.isNotEmpty()) {
-                        val phoneNumbers = ArrayList(persona.phones.map { it.number })
-                        val intent = Intent(this, TelefonoListActivity::class.java).apply {
-                            putStringArrayListExtra("PHONE_NUMBERS", phoneNumbers)
-                        }
-                        startActivity(intent)
-                    } else {
-                        println("La persona seleccionada no tiene números de teléfono.")
-                    }
                 }
                 true
             }
             R.id.action_lista -> {
                 selectedPersona?.let { persona ->
+                    println("id de la persona seleccionada: ${persona.id}")
                     val intent = Intent(this, ListaDeTelefonosActivity::class.java).apply {
+                        putExtra("persona_id", persona.id)
+                    }
+                    startActivity(intent)
+                }
+                true
+            }
+            R.id.action_lista_correos -> {
+                selectedPersona?.let { persona ->
+                    println("id de la persona seleccionada: ${persona.id}")
+                    val intent = Intent(this, ListaDeCorreosActivity::class.java).apply {
                         putExtra("persona_id", persona.id)
                     }
                     startActivity(intent)

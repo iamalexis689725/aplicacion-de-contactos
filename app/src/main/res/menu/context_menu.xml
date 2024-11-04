@@ -5,9 +5,9 @@
         android:id="@+id/action_delete"
         android:title="Eliminar Contacto" />
     <item
-        android:id="@+id/action_insert_telefono"
-        android:title="insertar telefono" />
-    <item
         android:id="@+id/action_lista"
         android:title="lista de telefonos" />
+    <item
+        android:id="@+id/action_lista_correos"
+        android:title="lista de correos" />
 </menu>

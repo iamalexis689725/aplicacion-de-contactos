@@ -3,6 +3,7 @@ package com.example.aplicacioncontactos.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aplicacioncontactos.models.Emails
 import com.example.aplicacioncontactos.models.Persona
 import com.example.aplicacioncontactos.models.Personas
 import com.example.aplicacioncontactos.models.Phone
@@ -24,6 +25,11 @@ class PersonaListViewModel: ViewModel() {
     }
     val telefonoList: LiveData<Phones> = _telefonoList
 
+    private val _correoList = MutableLiveData<Emails>().apply {
+        value = arrayListOf()
+    }
+    val correoList: LiveData<Emails> = _correoList
+
     fun getPersonaList() {
         PersonaRepository.getPersonaList(
             onSuccess = {
@@ -35,10 +41,24 @@ class PersonaListViewModel: ViewModel() {
     }
 
     fun getTelefonoListByPersona(id: Int) {
+        println("Persona en Lista de telefonos view Model: $id")
         PersonaRepository.getPersonaById(
             id,
             onSuccess = {
                 _telefonoList.value = it.phones
+            },
+            onError = {
+                it.printStackTrace()
+            }
+        )
+    }
+
+    fun getCorreoListByPersona(id: Int) {
+        println("Persona en Lista de correos view Model: $id")
+        PersonaRepository.getPersonaById(
+            id,
+            onSuccess = {
+                _correoList.value = it.emails
             },
             onError = {
                 it.printStackTrace()

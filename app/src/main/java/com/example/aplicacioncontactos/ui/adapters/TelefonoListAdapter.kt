@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplicacioncontactos.R
-import com.example.aplicacioncontactos.databinding.TelefonoItemLayoutBinding
-import com.example.aplicacioncontactos.models.Persona
-import com.example.aplicacioncontactos.models.Personas
+import com.example.aplicacioncontactos.databinding.ItemDeListaDeTelefonosBinding
 import com.example.aplicacioncontactos.models.Phone
 import com.example.aplicacioncontactos.models.Phones
 
@@ -17,7 +15,7 @@ class TelefonoListAdapter : RecyclerView.Adapter<TelefonoListAdapter.TelefonoIte
     private var telefonoLista: Phones = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TelefonoItemViewHolder {
-        val binding = TelefonoItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDeListaDeTelefonosBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TelefonoItemViewHolder(binding.root)
     }
 
@@ -38,9 +36,10 @@ class TelefonoListAdapter : RecyclerView.Adapter<TelefonoListAdapter.TelefonoIte
 
         private val lblItemDeNumeroDeTelefono: TextView = itemView.findViewById(R.id.lblItemDeNumeroDeTelefono)
         private val lblItemDeEtiqueteDeTelefono: TextView = itemView.findViewById(R.id.lblItemDeEtiqueteDeTelefono)
-        fun bind(persona: Phone) {
-            lblItemDeNumeroDeTelefono.text = persona.number
-            lblItemDeEtiqueteDeTelefono.text = persona.label
+
+        fun bind(phone: Phone) {
+            lblItemDeNumeroDeTelefono.text = phone.number
+            lblItemDeEtiqueteDeTelefono.text = phone.label
         }
     }
 }
